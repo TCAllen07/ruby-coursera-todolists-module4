@@ -1,6 +1,15 @@
-Rails.application.routes.draw do
-  resources :todo_items
-  resources :todo_lists
+ Rails.application.routes.draw do
+  root to: "todo_lists#index"
+  # get 'sessions/new'
+  # get 'sessions/create'
+  # get 'sessions/destroy'
+  resources :sessions, only: [:new, :create, :destroy]
+  get "/login" => "sessions#new", as: "login"
+  delete "/logout" => "sessions#destroy", as: "logout"
+
+  resources :todo_lists do
+    resources :todo_items
+  end
   resources :profiles
   resources :users
   # The priority is based upon order of creation: first created -> highest priority.
